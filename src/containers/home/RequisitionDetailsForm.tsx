@@ -2,13 +2,22 @@ import { Button, Flex, Box } from "@chakra-ui/react";
 import React, { useEffect,useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-
+import { useData } from "./DataProvider";
 import FormInput from "../../components/formComponents/FormInput";
 import FormSelect from "../../components/formComponents/FormSelect";
 import { IRequisitionDetails } from "../../interface/forms";
 import { genderOptions, urgencyOptions } from "./constants";
 
-const RequisitionDetailsForm: React.FC<{ setFormValues: React.Dispatch<React.SetStateAction<IRequisitionDetails>> }> = ({setFormValues}) => {
+interface RequisitionDetailsFormProps {
+  setFormValues: React.Dispatch<React.SetStateAction<IRequisitionDetails>>;
+  handleTabChange: (newIndex: number) => void;
+}
+
+const RequisitionDetailsForm: React.FC<RequisitionDetailsFormProps> = ({setFormValues, handleTabChange}) => {
+  const context = useData();
+  if(!context) return null;
+  const { state, setState } = context;
+
   const {
     handleChange,
     errors,
@@ -36,12 +45,18 @@ const RequisitionDetailsForm: React.FC<{ setFormValues: React.Dispatch<React.Set
       gender: Yup.string().required("Gender is required"),
     }),
     onSubmit: (values) => {
-      //  Go to Next Step
+      setState((prevState) => ({
+        ...prevState,
+        requisitionDetails: values,
+      }));
+      handleTabChange(1);
     },
   });
+
   useEffect(() => {
     setFormValues(values);
   }, [values, setFormValues]);
+
   return (
     <Box width="100%" as="form" onSubmit={handleSubmit as any}>
 

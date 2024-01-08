@@ -2,11 +2,14 @@ import { Button, Flex, Box } from "@chakra-ui/react";
 import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-
+import { useData } from "./DataProvider";
 import FormInput from "../../components/formComponents/FormInput";
 import { IJobDetails } from "../../interface/forms";
 
-const JobDetailsForm: React.FC = () => {
+const JobDetailsForm: React.FC<{handleTabChange: (newIndex: number) => void}>= ({handleTabChange}) => {
+  const context = useData();
+  if(!context) return null;
+  const { state, setState } = context;
   const { handleChange, errors, touched, handleBlur, handleSubmit, values } =
     useFormik<IJobDetails>({
       initialValues: {
@@ -18,11 +21,13 @@ const JobDetailsForm: React.FC = () => {
         jobTitle: Yup.string().required("Job Title is required"),
         jobDetails: Yup.string().required("Job Details is required"),
         jobLocation: Yup.string().required("Job Location is required"),
-        jobPosition: Yup.string().required("Job position is required"),
+        // bug was here
       }),
       onSubmit: (values) => {
         console.log({ values });
         // Go to next step
+        setState((prev) => ({ ...prev, jobDetails: values }));
+        handleTabChange(2)
       },
     });
 
@@ -60,9 +65,7 @@ const JobDetailsForm: React.FC = () => {
           value={values.jobLocation}
         />
         <Flex w="100%" justify="flex-end" mt="4rem" gap="20px">
-          <Button colorScheme="gray" type="button">
-            Previous
-          </Button>
+
           <Button colorScheme="red" type="submit">
             Next
           </Button>

@@ -28,6 +28,7 @@ const CustomTab: React.FC<TabProps> = ({ children, ...props }) => {
 };
 
 const HomeLayout = () => {
+  
   const context = useData();
   if(!context) return null;
   const { state, setState } = context;
@@ -61,9 +62,9 @@ const HomeLayout = () => {
         </Heading>
         <Tabs isLazy onChange={(index)=>setTabIndex(index)} index={tabIndex}>
           <TabList>
-            <CustomTab>Requistion Details</CustomTab>
-            <CustomTab>Job Details</CustomTab>
-            <CustomTab>Interview Settings</CustomTab>
+            <CustomTab isDisabled>Requistion Details</CustomTab>
+            <CustomTab isDisabled>Job Details</CustomTab>
+            <CustomTab isDisabled>Interview Settings</CustomTab>
           </TabList>
           <Grid display="grid" gridTemplateColumns="3fr 2fr" gap="24px">
             <TabPanels>
@@ -76,10 +77,10 @@ const HomeLayout = () => {
                 <JobDetailsForm setFormValues={setJobValues} handleTabChange={handleTabChange}/>
               </TabPanel>
               <TabPanel>
-                <InterviewSettingsForm />
+                <InterviewSettingsForm setFormValues={setInterviewVal} handleTabChange={handleTabChange}/>
               </TabPanel>
             </TabPanels>
-            <DisplayCard reqValues={reqValues} jobValues={jobValues}/>
+            <DisplayCard reqValues={reqValues} jobValues={jobValues} interviewVal={interviewVal}/>
           </Grid>
         </Tabs>
       </Container>

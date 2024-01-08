@@ -1,6 +1,6 @@
 import { Box, Flex, Text, Grid } from "@chakra-ui/react";
 import React from "react";
-import { IJobDetails, IRequisitionDetails } from "@src/interface/forms";
+import { IInterViewSettings, IJobDetails, IRequisitionDetails } from "@src/interface/forms";
 import { urgencyOptions,genderOptions } from "./constants";
 
 
@@ -46,9 +46,10 @@ const getGender =(value:string): string  => {
 interface PreviewCardProps {
   reqValues: IRequisitionDetails;
   jobValues: IJobDetails;
+  interviewVal: IInterViewSettings;
 }
 
-const PreviewCard: React.FC<PreviewCardProps> = ({reqValues, jobValues}) => {
+const PreviewCard: React.FC<PreviewCardProps> = ({reqValues, jobValues, interviewVal}) => {
   return (
     <Box p="1rem">
       <Box borderRadius="10px" bgColor="gray.100" height="fit-content">
@@ -99,9 +100,9 @@ const PreviewCard: React.FC<PreviewCardProps> = ({reqValues, jobValues}) => {
             <KeyValue title="Job Location" value={jobValues.jobLocation} />
           </DataCard>
           <DataCard title="Interview Settings">
-            <KeyValue title="Interview Duration" value="" />
-            <KeyValue title="Interview Language" value="" />
-            <KeyValue title="Interview Mode" value="" />
+            <KeyValue title="Interview Duration" value={interviewVal.interviewDuration} />
+            <KeyValue title="Interview Language" value={interviewVal.interviewLanguage} />
+            <KeyValue title="Interview Mode" value={interviewVal.interviewMode} />
           </DataCard>
         </Box>
       </Box>

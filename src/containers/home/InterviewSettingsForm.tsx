@@ -2,7 +2,7 @@ import { Button, Flex, Box } from "@chakra-ui/react";
 import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-
+import { useEffect } from "react";
 import FormSelect from "../../components/formComponents/FormSelect";
 import { IInterViewSettings } from "../../interface/forms";
 import {
@@ -10,8 +10,18 @@ import {
   interviewLanguageOptions,
   interviewModeOptions,
 } from "./constants";
+import { useData } from "./DataProvider";
 
-const InterviewDetailsForm: React.FC = () => {
+interface InterViewDetailsFormProps {
+  setFormValues: React.Dispatch<React.SetStateAction<IInterViewSettings>>;
+  handleTabChange: (newIndex: number) => void;
+}
+
+const InterviewDetailsForm: React.FC<InterViewDetailsFormProps> = ({setFormValues,handleTabChange}) => {
+  const context = useData();
+  if(!context) return null;
+  const { state, setState } = context;
+
   const {
     errors,
     touched,
@@ -31,10 +41,15 @@ const InterviewDetailsForm: React.FC = () => {
       interviewLanguage: Yup.string().required("Language is required"),
     }),
     onSubmit: (values) => {
+      setState((prev) => ({ ...prev, interviewSettings: values }));
+
       console.log({ values });
       alert("Form successfully submitted");
     },
   });
+  useEffect(() => {
+    setFormValues(values);
+  }, [values, setFormValues]);
 
   return (
     <Box width="100%" as="form" onSubmit={handleSubmit as any}>
@@ -73,7 +88,7 @@ const InterviewDetailsForm: React.FC = () => {
           value={values.interviewLanguage}
         />
         <Flex w="100%" justify="flex-end" mt="4rem" gap="20px">
-          <Button colorScheme="gray" type="button">
+          <Button colorScheme="gray" type="button" onClick={()=>handleTabChange(1)}>
             Previous
           </Button>
           <Button colorScheme="red" type="submit">

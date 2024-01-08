@@ -76,7 +76,9 @@ const JobDetailsForm: React.FC<JobDetailsFormProps>= ({setFormValues,handleTabCh
           value={values.jobLocation}
         />
         <Flex w="100%" justify="flex-end" mt="4rem" gap="20px">
-
+        <Button colorScheme="gray" type="button" onClick={()=>handleTabChange(0)}>
+            Previous
+          </Button>
           <Button colorScheme="red" type="submit">
             Next
           </Button>

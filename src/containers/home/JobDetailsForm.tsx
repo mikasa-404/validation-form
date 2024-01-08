@@ -5,11 +5,18 @@ import * as Yup from "yup";
 import { useData } from "./DataProvider";
 import FormInput from "../../components/formComponents/FormInput";
 import { IJobDetails } from "../../interface/forms";
+import { useEffect } from "react";
 
-const JobDetailsForm: React.FC<{handleTabChange: (newIndex: number) => void}>= ({handleTabChange}) => {
+
+interface JobDetailsFormProps {
+  setFormValues: React.Dispatch<React.SetStateAction<IJobDetails>>;
+  handleTabChange: (newIndex: number) => void;
+}
+const JobDetailsForm: React.FC<JobDetailsFormProps>= ({setFormValues,handleTabChange}) => {
   const context = useData();
   if(!context) return null;
   const { state, setState } = context;
+
   const { handleChange, errors, touched, handleBlur, handleSubmit, values } =
     useFormik<IJobDetails>({
       initialValues: {
@@ -30,6 +37,10 @@ const JobDetailsForm: React.FC<{handleTabChange: (newIndex: number) => void}>= (
         handleTabChange(2)
       },
     });
+
+  useEffect(() => {
+    setFormValues(values);
+  }, [values, setFormValues]);
 
   return (
     <Box width="100%" as="form" onSubmit={handleSubmit as any}>

@@ -32,12 +32,22 @@ const HomeLayout = () => {
   if(!context) return null;
   const { state, setState } = context;
   console.log(state)
-  const [formValues, setFormValues] = useState({
+  const [reqValues, setReqValues] = useState({
     requisitionTitle: "",
     noOfOpenings: 0,
     urgency: "",
     gender: "",
   });
+  const [jobValues, setJobValues]=useState({
+    jobDetails: "",
+    jobLocation: "",
+    jobTitle: "",
+  })
+  const [interviewVal, setInterviewVal]=useState({
+    interviewDuration: "",
+    interviewLanguage: "",
+    interviewMode: "",
+  })
   const [tabIndex, setTabIndex] = useState(0);
 
   const handleTabChange = (newIndex: number) => {
@@ -58,18 +68,18 @@ const HomeLayout = () => {
           <Grid display="grid" gridTemplateColumns="3fr 2fr" gap="24px">
             <TabPanels>
               <TabPanel>
-                <RequisitionForm setFormValues={setFormValues} 
+                <RequisitionForm setFormValues={setReqValues} 
                 handleTabChange={handleTabChange}
                 />
               </TabPanel>
               <TabPanel>
-                <JobDetailsForm handleTabChange={handleTabChange}/>
+                <JobDetailsForm setFormValues={setJobValues} handleTabChange={handleTabChange}/>
               </TabPanel>
               <TabPanel>
                 <InterviewSettingsForm />
               </TabPanel>
             </TabPanels>
-            <DisplayCard formValues={formValues}/>
+            <DisplayCard reqValues={reqValues} jobValues={jobValues}/>
           </Grid>
         </Tabs>
       </Container>

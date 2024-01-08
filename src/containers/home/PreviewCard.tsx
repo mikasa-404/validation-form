@@ -1,6 +1,6 @@
 import { Box, Flex, Text, Grid } from "@chakra-ui/react";
 import React from "react";
-import { IRequisitionDetails } from "@src/interface/forms";
+import { IJobDetails, IRequisitionDetails } from "@src/interface/forms";
 import { urgencyOptions,genderOptions } from "./constants";
 
 
@@ -44,10 +44,11 @@ const getGender =(value:string): string  => {
   return option ? option.label : "-";
 };
 interface PreviewCardProps {
-  formValues: IRequisitionDetails;
+  reqValues: IRequisitionDetails;
+  jobValues: IJobDetails;
 }
 
-const PreviewCard: React.FC<PreviewCardProps> = ({formValues}) => {
+const PreviewCard: React.FC<PreviewCardProps> = ({reqValues, jobValues}) => {
   return (
     <Box p="1rem">
       <Box borderRadius="10px" bgColor="gray.100" height="fit-content">
@@ -77,10 +78,10 @@ const PreviewCard: React.FC<PreviewCardProps> = ({formValues}) => {
               justifyContent="space-between"
               alignItems="center"
             >
-              <Text fontSize="0.9rem" fontWeight="500">{formValues.requisitionTitle}</Text>
+              <Text fontSize="0.9rem" fontWeight="500">{reqValues.requisitionTitle}</Text>
               <Flex justifyContent="space-around" alignItems="center">
                 <Text fontSize="0.8rem" mr="0.4rem" fontWeight="200" as="p">
-                  OPENINGS {formValues.noOfOpenings}
+                  OPENINGS {reqValues.noOfOpenings}
                 </Text>
                 <Text fontSize="1rem" fontWeight="bold" as="span"></Text>
               </Flex>
@@ -89,13 +90,13 @@ const PreviewCard: React.FC<PreviewCardProps> = ({formValues}) => {
         </Box>
         <Box maxH="50rem" overflowY="auto" px="24px" pb="24px">
           <DataCard title="Requisition Details">
-            <KeyValue title="Urgency" value={getUrgencyLabel(formValues.urgency)} />
-            <KeyValue title="Gender" value={getGender(formValues.gender)} />
+            <KeyValue title="Urgency" value={getUrgencyLabel(reqValues.urgency)} />
+            <KeyValue title="Gender" value={getGender(reqValues.gender)} />
           </DataCard>
           <DataCard title="Job Detail">
-            <KeyValue title="Job Title" value="" />
-            <KeyValue title="Job Details" value="" />
-            <KeyValue title="Job Location" value="" />
+            <KeyValue title="Job Title" value={jobValues.jobTitle} />
+            <KeyValue title="Job Details" value={jobValues.jobDetails} />
+            <KeyValue title="Job Location" value={jobValues.jobLocation} />
           </DataCard>
           <DataCard title="Interview Settings">
             <KeyValue title="Interview Duration" value="" />

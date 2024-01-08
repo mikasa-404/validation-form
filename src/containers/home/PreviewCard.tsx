@@ -1,7 +1,7 @@
 import { Box, Flex, Text, Grid } from "@chakra-ui/react";
 import React from "react";
 import { IInterViewSettings, IJobDetails, IRequisitionDetails } from "@src/interface/forms";
-import { urgencyOptions,genderOptions } from "./constants";
+import { urgencyOptions,genderOptions,interviewLanguageOptions, interviewDurationOptions } from "./constants";
 
 
 const DataCard: React.FC<{ title: string; children: React.ReactNode }> = ({
@@ -43,6 +43,14 @@ const getGender =(value:string): string  => {
   const option = genderOptions.find((option) => option.value === value);
   return option ? option.label : "-";
 };
+const getLang =(value:string): string  => {
+  const option = interviewLanguageOptions.find((option) => option.value === value);
+  return option ? option.label : "-";
+}; 
+const getDuration=(value:string): string  => {
+  const option = interviewDurationOptions.find((option) => option.value === value);
+  return option ? option.label : "-";
+}; 
 interface PreviewCardProps {
   reqValues: IRequisitionDetails;
   jobValues: IJobDetails;
@@ -100,8 +108,8 @@ const PreviewCard: React.FC<PreviewCardProps> = ({reqValues, jobValues, intervie
             <KeyValue title="Job Location" value={jobValues.jobLocation} />
           </DataCard>
           <DataCard title="Interview Settings">
-            <KeyValue title="Interview Duration" value={interviewVal.interviewDuration} />
-            <KeyValue title="Interview Language" value={interviewVal.interviewLanguage} />
+            <KeyValue title="Interview Duration" value={getDuration(interviewVal.interviewDuration)} />
+            <KeyValue title="Interview Language" value={getLang(interviewVal.interviewLanguage)} />
             <KeyValue title="Interview Mode" value={interviewVal.interviewMode} />
           </DataCard>
         </Box>

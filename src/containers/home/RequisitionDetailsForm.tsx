@@ -14,9 +14,9 @@ interface RequisitionDetailsFormProps {
 }
 
 const RequisitionDetailsForm: React.FC<RequisitionDetailsFormProps> = ({setFormValues, handleTabChange}) => {
-  const context = useData();
-  if(!context) return null;
-  const { state, setState } = context;
+  // const context = useData();
+  // if(!context) return null;
+  // const { state, setState } = context;
 
   const {
     handleChange,
@@ -45,10 +45,10 @@ const RequisitionDetailsForm: React.FC<RequisitionDetailsFormProps> = ({setFormV
       gender: Yup.string().required("Gender is required"),
     }),
     onSubmit: (values) => {
-      setState((prevState) => ({
-        ...prevState,
-        requisitionDetails: values,
-      }));
+      // setState((prevState) => ({
+      //   ...prevState,
+      //   requisitionDetails: values,
+      // }));
       handleTabChange(1);
     },
   });

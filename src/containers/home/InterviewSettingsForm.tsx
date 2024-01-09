@@ -18,9 +18,9 @@ interface InterViewDetailsFormProps {
 }
 
 const InterviewDetailsForm: React.FC<InterViewDetailsFormProps> = ({setFormValues,handleTabChange}) => {
-  const context = useData();
-  if(!context) return null;
-  const { state, setState } = context;
+  // const context = useData();
+  // if(!context) return null;
+  // const { state, setState } = context;
 
   const {
     errors,
@@ -41,7 +41,7 @@ const InterviewDetailsForm: React.FC<InterViewDetailsFormProps> = ({setFormValue
       interviewLanguage: Yup.string().required("Language is required"),
     }),
     onSubmit: (values) => {
-      setState((prev) => ({ ...prev, interviewSettings: values }));
+      // setState((prev) => ({ ...prev, interviewSettings: values }));
 
       console.log({ values });
       alert("Form successfully submitted");

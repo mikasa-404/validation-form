@@ -13,9 +13,9 @@ interface JobDetailsFormProps {
   handleTabChange: (newIndex: number) => void;
 }
 const JobDetailsForm: React.FC<JobDetailsFormProps>= ({setFormValues,handleTabChange}) => {
-  const context = useData();
-  if(!context) return null;
-  const { state, setState } = context;
+  // const context = useData();
+  // if(!context) return null;
+  // const { state, setState } = context;
 
   const { handleChange, errors, touched, handleBlur, handleSubmit, values } =
     useFormik<IJobDetails>({
@@ -33,7 +33,7 @@ const JobDetailsForm: React.FC<JobDetailsFormProps>= ({setFormValues,handleTabCh
       onSubmit: (values) => {
         console.log({ values });
         // Go to next step
-        setState((prev) => ({ ...prev, jobDetails: values }));
+        // setState((prev) => ({ ...prev, jobDetails: values }));
         handleTabChange(2)
       },
     });

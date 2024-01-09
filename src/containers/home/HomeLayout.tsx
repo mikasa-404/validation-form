@@ -29,10 +29,7 @@ const CustomTab: React.FC<TabProps> = ({ children, ...props }) => {
 
 const HomeLayout = () => {
   
-  const context = useData();
-  if(!context) return null;
-  const { state, setState } = context;
-  console.log(state)
+  
   const [reqValues, setReqValues] = useState({
     requisitionTitle: "",
     noOfOpenings: 0,
